@@ -35,23 +35,54 @@ function consultAPI(city, country) {
 	const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${appId}`;
 
 	fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.cod === '404') {
-        showError('City not found');
-        return;
-      }
+		.then(response => response.json())
+		.then(data => {
+			clearHTML();
+			if (data.cod === '404') {
+				showError('City not found');
+				return;
+			}
 
-      // Print the result
-      showWeather(data);
-    });
+			// Print the result
+			showWeather(data);
+		});
 }
 
-function showWeather(data) { }
+/**
+ * Displays weather information on the webpage.
+ * @param {Object} data - The weather data object.
+ */
+function showWeather(data) {
+	const {
+		main: { temp, temp_max, temp_min },
+	} = data;
+
+	// Convert Kelvin to Centigrade
+	const centigrade = kelvinToCentigrade(temp);
+	const max = kelvinToCentigrade(temp_max);
+	const min = kelvinToCentigrade(temp_min);
+
+	const current = document.createElement('P');
+	current.innerHTML = `${centigrade} &#8451;`;
+	current.classList.add('font-bold', 'text-6xl');
+
+	const resultDiv = document.createElement('DIV');
+	resultDiv.classList.add('text-center', 'text-white');
+	resultDiv.appendChild(current);
+
+	result.appendChild(resultDiv);
+}
+
+/**
+ * Converts temperature in Kelvin to Centigrade.
+ * @param {number} degrees - The temperature in Kelvin.
+ * @returns {number} - The temperature in Centigrade.
+ */
+const kelvinToCentigrade = degrees => parseInt(degrees - 273.15);
 
 /**
  * Displays an error message on the page.
- * 
+ *
  * @param {string} message - The error message to be displayed.
  */
 function showError(message) {
@@ -82,5 +113,14 @@ function showError(message) {
 		setTimeout(() => {
 			alert.remove();
 		}, 3000);
+	}
+}
+
+/**
+ * Clears the HTML content of the 'result' element.
+ */
+function clearHTML() {
+	while (result.firstChild) {
+		result.removeChild(result.firstChild);
 	}
 }
