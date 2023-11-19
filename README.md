@@ -64,4 +64,3 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 - Thanks to [OpenWeatherMap](https://openweathermap.org/) for providing the weather data API.
 - Special thanks to the Tailwind CSS community for the styling framework.
-```
