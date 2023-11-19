@@ -7,7 +7,7 @@ window.addEventListener('load', () => {
 });
 
 /**
- * Performs a weather search based on the provided city and country.
+ * Function to search weather information based on the provided city and country.
  * @param {Event} event - The event object.
  */
 function searchWeather(event) {
@@ -34,6 +34,8 @@ function consultAPI(city, country) {
 	const appId = '6c7d35566bf62a26ee9c0ce600f27cdc';
 	const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${appId}`;
 
+	spinner();
+
 	fetch(url)
 		.then(response => response.json())
 		.then(data => {
@@ -50,41 +52,42 @@ function consultAPI(city, country) {
 
 /**
  * Displays weather information on the webpage.
+ * 
  * @param {Object} data - The weather data object.
  */
 function showWeather(data) {
-  const {
-    name,
+	const {
+		name,
 		main: { temp, temp_max, temp_min },
 	} = data;
 
 	// Convert Kelvin to Centigrade
 	const centigrade = kelvinToCentigrade(temp);
 	const max = kelvinToCentigrade(temp_max);
-  const min = kelvinToCentigrade(temp_min);
-  
-  const cityName = document.createElement('P');
-  cityName.innerHTML = `Weather in ${name}`;
-  cityName.classList.add('font-bold', 'text-2xl');
+	const min = kelvinToCentigrade(temp_min);
+
+	const cityName = document.createElement('P');
+	cityName.innerHTML = `Weather in ${name}`;
+	cityName.classList.add('font-bold', 'text-2xl');
 
 	const current = document.createElement('P');
 	current.innerHTML = `${centigrade} &#8451;`;
-  current.classList.add('font-bold', 'text-6xl');
-  
-  const tempMax = document.createElement('P');
-  tempMax.innerHTML = `Max: ${max} &#8451;`;
-  tempMax.classList.add('text-xl');
+	current.classList.add('font-bold', 'text-6xl');
 
-  const tempMin = document.createElement('P');
-  tempMin.innerHTML = `Min: ${min} &#8451;`;
-  tempMin.classList.add('text-xl');
+	const tempMax = document.createElement('P');
+	tempMax.innerHTML = `Max: ${max} &#8451;`;
+	tempMax.classList.add('text-xl');
+
+	const tempMin = document.createElement('P');
+	tempMin.innerHTML = `Min: ${min} &#8451;`;
+	tempMin.classList.add('text-xl');
 
 	const resultDiv = document.createElement('DIV');
-  resultDiv.classList.add('text-center', 'text-white');
-  resultDiv.appendChild(cityName);
-  resultDiv.appendChild(current);
-  resultDiv.appendChild(tempMax);
-  resultDiv.appendChild(tempMin);
+	resultDiv.classList.add('text-center', 'text-white');
+	resultDiv.appendChild(cityName);
+	resultDiv.appendChild(current);
+	resultDiv.appendChild(tempMax);
+	resultDiv.appendChild(tempMin);
 
 	result.appendChild(resultDiv);
 }
@@ -130,6 +133,32 @@ function showError(message) {
 			alert.remove();
 		}, 3000);
 	}
+}
+
+/**
+ * Displays a spinner on the page.
+ */
+function spinner() {
+	clearHTML();
+
+	const divSpinner = document.createElement('DIV');
+	divSpinner.classList.add('sk-fading-circle');
+
+	divSpinner.innerHTML = `
+    <div class="sk-circle1 sk-circle"></div>
+    <div class="sk-circle2 sk-circle"></div>
+    <div class="sk-circle3 sk-circle"></div>
+    <div class="sk-circle4 sk-circle"></div>
+    <div class="sk-circle5 sk-circle"></div>
+    <div class="sk-circle6 sk-circle"></div>
+    <div class="sk-circle7 sk-circle"></div>
+    <div class="sk-circle8 sk-circle"></div>
+    <div class="sk-circle9 sk-circle"></div>
+    <div class="sk-circle10 sk-circle"></div>
+    <div class="sk-circle11 sk-circle"></div>
+    <div class="sk-circle12 sk-circle"></div>`;
+
+	result.appendChild(divSpinner);
 }
 
 /**
