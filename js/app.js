@@ -53,22 +53,38 @@ function consultAPI(city, country) {
  * @param {Object} data - The weather data object.
  */
 function showWeather(data) {
-	const {
+  const {
+    name,
 		main: { temp, temp_max, temp_min },
 	} = data;
 
 	// Convert Kelvin to Centigrade
 	const centigrade = kelvinToCentigrade(temp);
 	const max = kelvinToCentigrade(temp_max);
-	const min = kelvinToCentigrade(temp_min);
+  const min = kelvinToCentigrade(temp_min);
+  
+  const cityName = document.createElement('P');
+  cityName.innerHTML = `Weather in ${name}`;
+  cityName.classList.add('font-bold', 'text-2xl');
 
 	const current = document.createElement('P');
 	current.innerHTML = `${centigrade} &#8451;`;
-	current.classList.add('font-bold', 'text-6xl');
+  current.classList.add('font-bold', 'text-6xl');
+  
+  const tempMax = document.createElement('P');
+  tempMax.innerHTML = `Max: ${max} &#8451;`;
+  tempMax.classList.add('text-xl');
+
+  const tempMin = document.createElement('P');
+  tempMin.innerHTML = `Min: ${min} &#8451;`;
+  tempMin.classList.add('text-xl');
 
 	const resultDiv = document.createElement('DIV');
-	resultDiv.classList.add('text-center', 'text-white');
-	resultDiv.appendChild(current);
+  resultDiv.classList.add('text-center', 'text-white');
+  resultDiv.appendChild(cityName);
+  resultDiv.appendChild(current);
+  resultDiv.appendChild(tempMax);
+  resultDiv.appendChild(tempMin);
 
 	result.appendChild(resultDiv);
 }
