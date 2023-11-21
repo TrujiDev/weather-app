@@ -29,7 +29,7 @@ Make sure you have the following installed:
 1. Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/weather-fetch-api.git
+git clone https://github.com/TrujiDev/weather-fetch-api.git
 ```
 
 2. Open the project in your code editor.
