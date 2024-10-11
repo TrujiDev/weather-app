@@ -31,7 +31,7 @@ function searchWeather(event) {
  * @param {string} country - The name of the country.
  */
 function consultAPI(city, country) {
-	const appId = '6c7d35566bf62a26ee9c0ce600f27cdc';
+	const appId = '';
 	const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${appId}`;
 
 	spinner();
